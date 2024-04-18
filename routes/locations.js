@@ -11,7 +11,7 @@ router.get("/locations", async (req, res) => {
 
   try {
     //  1: on utilise  /locations/v2/auto-complete pour obtenir des suggestions
-    const autoCompleteResponse = await axios.get(
+    const response = await axios.get(
       "https://the-fork-the-spoon.p.rapidapi.com/locations/v2/auto-complete",
       {
         params: { text },
@@ -24,13 +24,13 @@ router.get("/locations", async (req, res) => {
 
     // vérifie si des suggestions sont retournées
     if (
-      autoCompleteResponse.data &&
-      autoCompleteResponse.data.data &&
-      autoCompleteResponse.data.data.geolocation &&
-      autoCompleteResponse.data.data.geolocation.length > 0
+      response.data &&
+      response.data.data &&
+      response.data.data.geolocation &&
+      response.data.data.geolocation.length > 0
     ) {
       //  le premier objet de géolocalisation
-      const geolocation = autoCompleteResponse.data.data.geolocation[0];
+      const geolocation = response.data.data.geolocation[0];
       const googlePlaceId = geolocation.id.id;
       console.log("Google Place ID:", googlePlaceId);
 
