@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/locations", async (req, res) => {
-  const { text } = req.query;
+  const { text, pageNumber } = req.query;
 
   if (!text) {
     return res.status(400).json({ error: "text parameter is required" });
@@ -62,7 +62,11 @@ router.get("/locations", async (req, res) => {
         const restaurantsResponse = await axios.get(
           "https://the-fork-the-spoon.p.rapidapi.com/restaurants/v2/list",
           {
-            params: { queryPlaceValueCityId: cityId },
+            params: {
+              queryPlaceValueCityId: cityId,
+              pageSize: "10",
+              pageNumber: pageNumber || "1",
+            },
             headers: {
               "X-RapidAPI-Key": process.env.XRAPIDAPIKEY,
               "X-RapidAPI-Host": "the-fork-the-spoon.p.rapidapi.com",
