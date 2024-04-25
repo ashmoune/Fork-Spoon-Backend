@@ -11,7 +11,7 @@ router.get("/reviews/:id", async (req, res) => {
       {
         params: {
           restaurantId: id,
-          //   withReview: "WITH_REVIEW",
+          withReview: "WITH_REVIEW",
         },
         headers: {
           "X-RapidAPI-Key": process.env.XRAPIDAPIKEY,
